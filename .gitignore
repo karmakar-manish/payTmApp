@@ -1,0 +1,47 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables (API keys, database URIs, etc.)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Build and compiled files
+/dist
+/build
+/public/build
+/public/static
+
+# Logs and debugging files
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+debug.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Cache and temp files
+.cache
+.vscode/
+.idea/
+*.log
+
+# TypeScript build files (if using TypeScript)
+*.tsbuildinfo
+
+
+# Firebase
+.firebase/
+.firebaserc
+
+# Netlify
+.netlify/
+
+# Vercel
+.vercel/
