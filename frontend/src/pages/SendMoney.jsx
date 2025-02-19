@@ -3,6 +3,7 @@ import Heading from "../components/Heading";
 import InputBox from "../components/InputBox";
 import { useState } from "react";
 import axios from "axios";
+import { number } from "zod";
 
 function SendMoney()
 {
@@ -28,7 +29,13 @@ function SendMoney()
 
                 <div className="space-y-4">
                     <div className="mt-1">
-                        <InputBox label={"Amount (in Rs)"} placeholder={"Enter Amount"} onChange={(e)=>setAmount(e.target.value)}/>
+                        <InputBox label={"Amount (in Rs)"} placeholder={"Enter Amount"} inputMode="numeric"
+                        pattern="[0-9]*" 
+                        onChange={(e)=>{
+                                const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
+                                setAmount(value)
+                            }}
+                        />
                     </div>
                     <div>
                         <button className="bg-green-500 text-white text-md cursor-pointer font-medium rounded-md h-10 w-full "

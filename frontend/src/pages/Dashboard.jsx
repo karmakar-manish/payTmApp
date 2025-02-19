@@ -18,6 +18,7 @@ function Dashboard(){
             .then(response => {setAmount(parseInt(response.data.balance))})
         
 
+            //https://paytmapp-54gq.onrender.com
         // //getting the fname and lname of user
         axios.get("https://paytmapp-54gq.onrender.com/api/v1/user/getuser", {
             headers: {
@@ -28,7 +29,7 @@ function Dashboard(){
                 setFirstname(response.data.firstName)
                 setLastname(response.data.lastName)
             })
-    }, [])
+    }, [amount])
         
 
     return <div>
