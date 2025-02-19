@@ -11,7 +11,7 @@ function Dashboard(){
 
     useEffect(()=>{
         //getting the balance of the user
-        axios.get("http://localhost:3000/api/v1/account/balance", {
+        axios.get("https://paytmapp-54gq.onrender.com/api/v1/account/balance", {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }})
@@ -19,7 +19,7 @@ function Dashboard(){
         
 
         // //getting the fname and lname of user
-        axios.get("http://localhost:3000/api/v1/user/getuser", {
+        axios.get("https://paytmapp-54gq.onrender.com/api/v1/user/getuser", {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }

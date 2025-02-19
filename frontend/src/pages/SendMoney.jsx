@@ -33,7 +33,7 @@ function SendMoney()
                     <div>
                         <button className="bg-green-500 text-white text-md cursor-pointer font-medium rounded-md h-10 w-full "
                         onClick={()=>{
-                            axios.post("http://localhost:3000/api/v1/account/transfer", {
+                            axios.post("https://paytmapp-54gq.onrender.com/api/v1/account/transfer", {
                                 to:id,
                                 amount: amount
                             }, {
