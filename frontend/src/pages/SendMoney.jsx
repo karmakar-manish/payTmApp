@@ -50,7 +50,7 @@ function SendMoney()
                             })
 
                             //navigate to dashboard
-                            navigate("/dashboard")
+                            navigate("/dashboard", {state: {refresh: true}})
                         }}>Initiate Transfer</button>
                     </div>
                 </div>

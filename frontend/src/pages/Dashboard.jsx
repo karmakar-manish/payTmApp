@@ -4,22 +4,43 @@ import Balance from "../components/Balance"
 import Users from "../components/Users"
 import axios from "axios"
 
-function Dashboard(){
-    const [amount, setAmount] = useState(0)
-    const [firstName, setFirstname] = useState("")
-    const [lastName, setLastname] = useState("")
+
+//custom hook to fetch balance after every n seconds
+function useFetchBalance(n)
+{
+    const [balance, setBalance] = useState(0) //state variable to store account balance
 
     useEffect(()=>{
-        //getting the balance of the user
-        axios.get("https://paytmapp-54gq.onrender.com/api/v1/account/balance", {
+        const fetchBalance = ()=> {
+            axios.get("https://paytmapp-54gq.onrender.com/api/v1/account/balance", {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }})
-            .then(response => {setAmount(parseInt(response.data.balance))})
-        
+            .then(response => {
+                setBalance(parseInt(response.data.balance))
+            })
+        }
 
-            //https://paytmapp-54gq.onrender.com
-        // //getting the fname and lname of user
+        //fetch the balance initially
+        fetchBalance();
+
+        //fetch balance after every n sec
+        const intervalId = setInterval(fetchBalance, n*1000)
+
+        //anytime n changes, we want to clear the previous setTimeout
+        return ()=>clearInterval(intervalId)
+
+    },[n])
+
+    return {balance}
+}
+
+function Dashboard(){
+    const [firstName, setFirstname] = useState("")
+    const [lastName, setLastname] = useState("")
+
+    //fetch the firstname and lastname of the user
+    useEffect(()=>{
         axios.get("https://paytmapp-54gq.onrender.com/api/v1/user/getuser", {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
@@ -28,13 +49,15 @@ function Dashboard(){
             .then(response=>{
                 setFirstname(response.data.firstName)
                 setLastname(response.data.lastName)
-            })
-    }, [amount])
-        
-
+            })   
+    }, [])
+    
+    //get the balance from the custom hook
+    const {balance} = useFetchBalance(10)
+    
     return <div>
         <Appbar firstName={firstName} lastName={lastName}/>
-        <Balance value={amount}/>
+        <Balance balance={balance}/>
         <Users/>
     </div>
 }

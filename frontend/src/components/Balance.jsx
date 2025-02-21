@@ -4,7 +4,7 @@ function Balance(props){
             Your balance
         </div>
         <div className="ml-4 font-semibold text-lg"> 
-            Rs {props.value}
+            Rs {props.balance}
         </div>
     </div>
 }

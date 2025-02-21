@@ -3,19 +3,35 @@ import Button from "./Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Users(props)
+function Users()
 {
     //replace with backend call
     const [users, setUsers] = useState([])  //an array of users
-    const [filter, setFilter] = useState("")    //for filtering user data
+    const [filter, setFilter] = useState("")    //for filtering user input
+    const [debouncedFilter, setDebouncedFilter] = useState("")    //stores the debounced input
 
-    //add debouncing
+    const [loading, setLoading] = useState(true)    //to show loading on screen
+
+    //updates debouncedFilter after a delay
     useEffect(()=>{
-        axios.get("https://paytmapp-54gq.onrender.com/api/v1/user/bulk?filter="+filter)
+        const handler = setTimeout(()=>{
+            setDebouncedFilter(filter);
+        }, 300) //300ms delay
+
+        //cleanup function to clear previous timeout
+        return () => clearTimeout(handler)
+        
+    }, [filter])    //runs whenever filter state variable changes
+
+
+    useEffect(()=>{
+        axios.get("https://paytmapp-54gq.onrender.com/api/v1/user/bulk?filter="+debouncedFilter)
             .then(response=>{
                 setUsers(response.data.user)
+                setLoading(false)   
             })
-    }, [filter])
+    }, [debouncedFilter])   //runs whenever debouncedFilter changes
+
 
     return <div className="p-2">
         <div className="font-bold mt-6 text-lg">
@@ -26,8 +42,13 @@ function Users(props)
             className="w-full px-2 py-1 border border-slate-200 rounded"/>
         </div>
         <div>
-            {/* maps through all the users state variable */}
-            {users.map(user=> <User key={user._id} user={user}/>)}
+            {loading?(
+                <div className="flex justify-center items-center h-16">
+                    <div className="w-10 h-10 border-5 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                </div>  
+            ) : (
+                users.map(user=> <User key={user._id} user={user}/>)
+            )}
         </div>
     </div>
 }
