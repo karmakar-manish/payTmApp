@@ -4,7 +4,7 @@ KeeperApp is a simple and efficient to-do list application that allows users to 
 
 ## 🚀 Features
 - User authentication (Sign Up & Sign In) 🔐
-- Create, edit, and delete to-do notes ✅
+- Create and delete to-do notes ✅
 - Persistent data storage using **MongoDB** 🗄️
 - Responsive UI with **Tailwind CSS** 🎨
 - Secure API with **JWT authentication** 🔑
@@ -20,5 +20,3 @@ KeeperApp is a simple and efficient to-do list application that allows users to 
 - Node.js & Express 🚀
 - MongoDB 🗄️
 - JWT Authentication 🔑
-
-## 📂 Project Structure
